@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  contact: {}
+  description: The cats API description
+  title: Cats example
+  version: "999.0"
+servers:
+- url: /
+tags:
+- description: ""
+  name: cats
+paths:
+  /v1:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ""
+      x-accepts: application/json
+  /v2:
+    get:
+      operationId: AppController_getHello2
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ""
+      x-accepts: application/json
+  /v3:
+    get:
+      operationId: AppController_getHello3
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: number
+          description: ""
+      x-accepts: application/json
+  /user:
+    get:
+      operationId: UserController_findAll
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+                type: array
+          description: ""
+      x-accepts: application/json
+    post:
+      operationId: UserController_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ""
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/{id}:
+    delete:
+      operationId: UserController_remove
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ""
+      x-accepts: application/json
+    get:
+      operationId: UserController_findOne
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
+          description: ""
+      x-accepts: application/json
+    patch:
+      operationId: UserController_update
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ""
+      x-content-type: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    CreateUserDto:
+      example:
+        firstName: firstName
+        lastName: lastName
+      properties:
+        firstName:
+          minLength: 6
+          type: string
+        lastName:
+          type: string
+      required:
+      - firstName
+      - lastName
+      type: object
+    User:
+      example:
+        firstName: firstName
+        lastName: lastName
+        isEnabled: true
+        id: 0.8008281904610115
+      properties:
+        id:
+          type: number
+        firstName:
+          minLength: 6
+          type: string
+        lastName:
+          type: string
+        isEnabled:
+          default: true
+          type: boolean
+      required:
+      - firstName
+      - id
+      - lastName
+      type: object
+    Test:
+      example:
+        firstName: firstName
+      properties:
+        firstName:
+          type: string
+      required:
+      - firstName
+      type: object
+    UpdateUserDto:
+      properties: {}
+      type: object
+
